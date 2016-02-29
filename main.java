@@ -2,11 +2,14 @@ package ClientPackage;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class main {
 
 	public static void main(String[] args) throws Exception{
 		
+
 //		PackageRoomPrice packRoom = new PackageRoomPrice(100, 5);
 //		PackageBase base = new PackageBase(500);
 		PackageRoomPrice perRoom = new PackageRoomPrice(2, 50, 20);
@@ -27,10 +30,6 @@ public class main {
 		marDel.SetPackageType(base);
 		user1.buyPackage(marDel);
 		user1.buyPackageCollection(packagesToBuy);
-		System.out.println(user1.getPackagesAdquiered());
-		System.out.println(user1.getMoneySpend());
-		System.out.println(user1.getBalance());
-		
 		user1.buyPackage(marDel);
 //		user1.setBalance(2000);
 //		marDel.SetPackageType(percentPack);

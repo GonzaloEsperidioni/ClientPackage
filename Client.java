@@ -3,7 +3,13 @@ package ClientPackage;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public abstract class Client {
+	
+	final static Logger LOGGER = LoggerFactory.getLogger(Client.class);
 	private double moneySpend;
 	private	String name;
 	private double balance;
@@ -33,10 +39,11 @@ public abstract class Client {
 		double amount = PackageToBuy.PackagePrice(this);
 		try{
 			if(balance > amount){
-				System.out.println("Balance: "+balance);
+				LOGGER.info("El usuario: {}", this.getName());
+				LOGGER.info("Tiene : {}", balance); 
 				balance = balance - amount;
-				System.out.println("Package Amount: "+amount);
-				System.out.println("New Balance: "+balance);
+				LOGGER.info("Compra paquete {} por {}", PackageToBuy.getClass().getName() ,amount); 
+				LOGGER.info("Nuevo Balance: {}", balance); 
 				packagesAdquiered.add(PackageToBuy);
 				this.moneySpend = this.moneySpend + amount;
 				this.verifyExpensive(PackageToBuy);
@@ -47,10 +54,10 @@ public abstract class Client {
 			}
 		}
 		catch(NotHaveSufficientFundsException e){
-			System.out.println("Excepcion: " + e);
+			LOGGER.error("No tenes platita!", e);
 		}
 		finally{
-			System.out.println("Balance: "+ amount);
+			LOGGER.info("Balance: {} y queres gastar : {}", balance, amount );
 		}
 		
 	}
@@ -75,11 +82,4 @@ public abstract class Client {
 	public PackageType getMostExpensivePackage(){
 		return this.mostExpensivePackage;
 	}
-//	public double getBuyHistory(Client cliente){
-//		double moneyWasted = 0;
-//		for (PackageType packageType : packagesAdquiered) {
-//			moneyWasted = moneyWasted + packageType.();
-//		}
-//		return moneyWasted;
-//	}
 }
