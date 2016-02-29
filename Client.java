@@ -29,20 +29,28 @@ public abstract class Client {
 		return balance;
 	}
 	
-	public void buyPackage(PackageType PackageToBuy) throws Exception{
+	public void buyPackage(PackageType PackageToBuy){
 		double amount = PackageToBuy.PackagePrice(this);
-		if(balance > amount){
-			System.out.println("Balance: "+balance);
-			balance = balance - amount;
-			System.out.println("Package Amount: "+amount);
-			System.out.println("New Balance: "+balance);
-			packagesAdquiered.add(PackageToBuy);
-			this.moneySpend = this.moneySpend + amount;
-			this.verifyExpensive(PackageToBuy);
+		try{
+			if(balance > amount){
+				System.out.println("Balance: "+balance);
+				balance = balance - amount;
+				System.out.println("Package Amount: "+amount);
+				System.out.println("New Balance: "+balance);
+				packagesAdquiered.add(PackageToBuy);
+				this.moneySpend = this.moneySpend + amount;
+				this.verifyExpensive(PackageToBuy);
+			}
+			else
+			{
+				throw new NotHaveSufficientFundsException();
+			}
 		}
-		else
-		{
-			throw new NotHaveSufficientFundsException();
+		catch(NotHaveSufficientFundsException e){
+			System.out.println("Excepcion: " + e);
+		}
+		finally{
+			System.out.println("Balance: "+ amount);
 		}
 		
 	}
